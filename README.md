@@ -5,7 +5,7 @@
 
 This project encompasses a comprehensive data engineering pipeline designed to process and analyze data related to Arsenal Football Club's players, goalkeepers, and matches from 2017 to 2023. The processed data provides insights into player performances, match outcomes, and goalkeeper statistics.
 
-![Architecture Diagram]([Architecture.jpg](Muhammadatef/ArsenalFC-Data-Pipeline-Project/blob/main/Architecture.jpg))
+![Architecture Diagram](ArsenalFC-Data-Pipeline-Project/blob/main/Architecture.jpg)
 
 ## Tech Stack & Tools
 
