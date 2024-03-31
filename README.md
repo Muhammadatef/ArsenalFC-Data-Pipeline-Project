@@ -35,14 +35,15 @@ This section will guide you through getting the project up and running on your l
 1- Download the Repo
 2- go to the folder of Docker_files
 3- Run this command to build the infrastructure
-<pre>
-    <code>
-        cd /<path of your docker folder>
-        docker-compose up -d 
-    </code>
-</pre>
+<pre> <code> cd /<path of your docker folder>
+        docker-compose up -d </code> </pre>
 4- open Jupyter on <pre> <code> http://localhost:8085/ </code> </pre> 
-5- 
+
+5- Run the Jupyter Notebooks to extract, transform & Load the data from and to PostgreSQL, default schema for the raw data - DWH schema if for DWH Data under arsenalfc database.
+
+6- Link Postgresql to PowerBI from Get Data Panel, choose Database then choose PostgreSQL Database, write the credentials:  
+<pre> <code> server : localhost:5442 database: arsenalfc </codd> </pre>
+
 ### Usage
 
 Instructions on executing ETL processes, scheduling via Airflow, and accessing PowerBI reports.
