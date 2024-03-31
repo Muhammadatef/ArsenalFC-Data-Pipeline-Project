@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  spark:
+    image: bitnami/spark:latest
+    ports:
+      - "8080:8080"  # Spark Web UI
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_PORT_NUMBER=7077
+    volumes:
+      - ./scripts:/opt/bitnami/spark/scripts
+      - ./data:/opt/bitnami/spark/data
+      - ./drivers/:/opt/bitnami/spark/drivers/
+
+    networks:
+      - my_network
+
+  jupyter:
+    image: jupyter/pyspark-notebook
+    container_name: jupyter
+    depends_on:
+      - spark
+    ports:
+      - "8085:8888"
+    environment:
+      SPARK_MASTER_URL: spark://spark:7077
+    networks:
+      - my_network
+    volumes:
+      - ./notebooks:/home/jovyan/work/notebooks/
+      - ./data:/home/jovyan/work/data/
+      - ./JDBC_Driver:/Drivers/SQL_Sever/jdbc
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+
+networks:
+  my_network:
+
+volumes:
+  postgres_data:
