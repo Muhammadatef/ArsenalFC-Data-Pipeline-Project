@@ -32,8 +32,17 @@ This section will guide you through getting the project up and running on your l
 
 ### Installation & Setup
 
-Detailed instructions on how to set up the environment, configure services, and start the project using Docker.
-
+1- Download the Repo
+2- go to the folder of Docker_files
+3- Run this command to build the infrastructure
+<pre>
+    <code>
+        cd /<path of your docker folder>
+        docker-compose up -d 
+    </code>
+</pre>
+4- open Jupyter on <pre> <code> http://localhost:8085/ </code> </pre> 
+5- 
 ### Usage
 
 Instructions on executing ETL processes, scheduling via Airflow, and accessing PowerBI reports.
