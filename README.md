@@ -79,6 +79,58 @@ The relationships between these tables are designed to provide a comprehensive v
 
 ![Galaxy Schema](/GalaxySchema.png)
 
+## Serving Layer Analysis with PowerBI
+
+The final step in our data pipeline is the analysis and visualization of the transformed data. For this purpose, we use PowerBI as our serving layer to create a series of dashboards that provide deep insights into the performance data.
+
+### PowerBI Dashboards
+
+Our PowerBI dashboards leverage the processed data to present interactive and insightful visualizations, enabling stakeholders to make informed decisions. The dashboards encompass various aspects of the game, including player statistics, match outcomes, and seasonal performance reviews.
+
+We have created a total of 8 dashboards, each tailored to answer specific analytical questions and provide a different perspective on the data.
+
+- Dashboard 1: (Arsenal Matches and Goals through the seasons  )
+- Dashboard 2: (Arsenal VS the Opponents Analysis)
+- Dashboard 3: (Arsenal Players & GKs Analysis)
+- Dashboard 4: (Total Shots,ShotsOnTarget for Attackes & Midfielders,Total Blocks,Total Interceptions,Total Tackles for Defenders)
+- Dashboard 5: (Midfielders Analysis)
+-  Dashboard 6: (Attackers Analysis)
+-  Dashboard 7: (Defenders Analysis)
+- Dashboard 8: (GoalKeepers Analysis)
+
+
+
+### Further Insights
+
+For a comprehensive walkthrough of the dashboard analysis, please refer to our detailed video overview:
+
+[![Dashboard Analysis](http://img.youtube.com/vi/4onMnSjMhR8/0.jpg)](https://www.youtube.com/watch?v=4onMnSjMhR8 "Arsenal FC Dashboard Analysis 2017 till 2023")
+
+Additionally, our dashboard analysis can be accessed in full detail on NovyPro:
+
+[Arsenal FC Dashboard Analysis 2017 till 2023 on NovyPro](https://www.novypro.com/project/arsenal-fc-dashboard-analysis-2017-till-2023)
+
+### Sample Visualizations
+
+Here are some of the key visualizations from our PowerBI dashboards:
+
+![Dashboard Visualization 1](/ArsenalVsOpponent.png)
+
+![Dashboard Visualization 2](/GoalKeepers.png)
+
+## Orchestration with Apache Airflow
+
+The ETL pipeline is orchestrated using Apache Airflow, which schedules and manages the workflow of our data processing tasks. Airflow's robust framework allows for scheduling, monitoring, and automating the pipeline's components, ensuring that data flows seamlessly from extraction through to visualization.
+
+Airflow provides a user-friendly interface to visualize the pipeline's progress, monitor task execution, and manage workflows efficiently. Our ETL workflow is encapsulated in a DAG (`etl_arsenalfc`) which is triggered on a scheduled basis, ensuring that the most up-to-date data is always processed and available for analysis.
+
+### Accessing the Airflow Web Interface
+
+The Airflow web interface can be accessed through the following link, which provides a real-time view of the pipeline's status, DAGs, and allows for manual triggers and inspections of logs:
+
+[Airflow ETL Pipeline - etl_arsenalfc](http://localhost:8090/dags/etl_arsenalfc/)
+
+Please note that the provided link assumes that Airflow is running on `localhost` on port `8090`. If your Airflow instance is hosted elsewhere or running on a different port, please adjust the URL accordingly.
 
 
 ### Usage
