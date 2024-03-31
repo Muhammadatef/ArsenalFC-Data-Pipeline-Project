@@ -124,9 +124,8 @@ Airflow provides a user-friendly interface to visualize the pipeline's progress,
 ### Accessing the Airflow Web Interface
 
 The Airflow web interface can be accessed through the following link, which provides a real-time view of the pipeline's status, DAGs, and allows for manual triggers and inspections of logs:
-<pre> <code> 
-</code>http://localhost:8090/dags/etl_arsenalfc/ 
-</pre>code> </pre>
+<pre> <code>  >http://localhost:8090/dags/etl_arsenalfc/ </code> </pre>
+
 Please note that the provided link assumes that Airflow is running on `localhost` on port `8090`. If your Airflow instance is hosted elsewhere or running on a different port, please adjust the URL accordingly.
 
 
