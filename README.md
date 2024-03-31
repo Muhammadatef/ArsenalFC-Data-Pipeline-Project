@@ -79,40 +79,40 @@ The relationships between these tables are designed to provide a comprehensive v
 
 ![Galaxy Schema](/GalaxySchema.png)
 
-## Serving Layer Analysis with PowerBI
+## Serving Layer Analysis with PowerBI and Jupyter Notebooks
 
-The final step in our data pipeline is the analysis and visualization of the transformed data. For this purpose, we use PowerBI as our serving layer to create a series of dashboards that provide deep insights into the performance data.
+The final steps in our data pipeline are the analysis and visualization of the transformed data. PowerBI serves as our primary serving layer, creating a suite of dashboards that provide deep insights into performance metrics. Additionally, we utilize Jupyter Notebooks for ad-hoc analysis and aggregations, leveraging PySpark for its powerful data processing capabilities. This combination ensures that stakeholders have access to both standardized reports and the flexibility for custom data exploration.
 
 ### PowerBI Dashboards
 
-Our PowerBI dashboards leverage the processed data to present interactive and insightful visualizations, enabling stakeholders to make informed decisions. The dashboards encompass various aspects of the game, including player statistics, match outcomes, and seasonal performance reviews.
+Our PowerBI dashboards harness the curated datasets to present interactive and insightful visualizations. These dashboards enable stakeholders to make informed decisions by encapsulating various aspects of the game, including player statistics, match outcomes, and seasonal performance reviews.
 
-We have created a total of 8 dashboards, each tailored to answer specific analytical questions and provide a different perspective on the data.
+We have meticulously crafted a total of 8 dashboards, each designed to address specific analytical queries and offer unique data perspectives:
 
-- Dashboard 1: (Arsenal Matches and Goals through the seasons  )
-- Dashboard 2: (Arsenal VS the Opponents Analysis)
-- Dashboard 3: (Arsenal Players & GKs Analysis)
-- Dashboard 4: (Total Shots,ShotsOnTarget for Attackes & Midfielders,Total Blocks,Total Interceptions,Total Tackles for Defenders)
-- Dashboard 5: (Midfielders Analysis)
--  Dashboard 6: (Attackers Analysis)
--  Dashboard 7: (Defenders Analysis)
-- Dashboard 8: (GoalKeepers Analysis)
+- Dashboard 1: Arsenal Matches and Goals through the seasons
+- Dashboard 2: Arsenal vs Opponents Analysis
+- Dashboard 3: Arsenal Players & Goalkeepers Analysis
+- Dashboard 4: Analysis of Total Shots, Shots on Target for Attackers & Midfielders, and Total Blocks, Interceptions, Tackles for Defenders
+- Dashboard 5: Midfielders Performance Analysis
+- Dashboard 6: Attackers Performance Analysis
+- Dashboard 7: Defenders Performance Analysis
+- Dashboard 8: Goalkeepers Performance Analysis
 
+### Further Insights and Ad-Hoc Analysis
 
-
-### Further Insights
-
-For a comprehensive walkthrough of the dashboard analysis, please refer to our detailed video overview:
+For an in-depth walkthrough of the dashboard analysis, please view our detailed video overview:
 
 [![Dashboard Analysis](http://img.youtube.com/vi/4onMnSjMhR8/0.jpg)](https://www.youtube.com/watch?v=4onMnSjMhR8 "Arsenal FC Dashboard Analysis 2017 till 2023")
 
-Additionally, our dashboard analysis can be accessed in full detail on NovyPro:
+The full details of our dashboard analysis can also be found on NovyPro:
 
 [Arsenal FC Dashboard Analysis 2017 till 2023 on NovyPro](https://www.novypro.com/project/arsenal-fc-dashboard-analysis-2017-till-2023)
 
+Beyond PowerBI, our Jupyter Notebooks provide an interactive environment for performing additional transformations and complex aggregations. These notebooks empower data analysts to work with large datasets in a more explorative and iterative manner.
+
 ### Sample Visualizations
 
-Here are some of the key visualizations from our PowerBI dashboards:
+The following visualizations highlight key aspects of our PowerBI dashboards:
 
 ![Dashboard Visualization 1](/ArsenalVsOpponent.png)
 
