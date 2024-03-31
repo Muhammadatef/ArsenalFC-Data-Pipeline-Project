@@ -35,14 +35,51 @@ This section will guide you through getting the project up and running on your l
 1- Download the Repo
 2- go to the folder of Docker_files
 3- Run this command to build the infrastructure
-<pre> <code> cd /<path of your docker folder>
+<pre> <code> cd / {path of your docker folder}
         docker-compose up -d </code> </pre>
 4- open Jupyter on <pre> <code> http://localhost:8085/ </code> </pre> 
 
 5- Run the Jupyter Notebooks to extract, transform & Load the data from and to PostgreSQL, default schema for the raw data - DWH schema if for DWH Data under arsenalfc database.
 
-6- Link Postgresql to PowerBI from Get Data Panel, choose Database then choose PostgreSQL Database, write the credentials:  
+6- Link Postgresql to PowerBI from Get Data Panel, choose Database then choose PostgreSQL Database, and write the credentials:  
 <pre> <code> server : localhost:5442 database: arsenalfc </codd> </pre>
+
+## Data Extraction from PostgreSQL
+
+The data extraction process involves reading the raw data stored in the PostgreSQL database. We have dedicated tables for Players, Goalkeepers, and Matches, each containing historical data from 2017 to 2023. This data forms the foundation for our analysis pipeline.
+
+To extract the data, we connect to the PostgreSQL database using Apache Spark's JDBC connector, which allows us to handle large datasets efficiently. The extraction process is orchestrated by Apache Airflow, ensuring the data is consistently and reliably pulled into our processing environment for the next ETL steps.
+
+## Transformation and Loading into the Data Warehouse Schema
+
+Once the data is extracted, transformation routines are applied to clean, normalize, and enrich the datasets. These transformations include:
+
+- Standardizing date formats
+- Calculating derived metrics
+- Deduplicating records
+- Joining datasets to create comprehensive views
+
+The transformed data is then loaded into a structured data warehouse schema within PostgreSQL. This schema is optimized for query efficiency and is designed to support the complex analytical queries required for our reporting and visualization needs.
+
+## Galaxy Schema Overview
+
+The Galaxy Schema, also known as a Fact Constellation Schema, is employed in our data warehouse to facilitate complex queries across different subject areas. It allows us to analyze performance from multiple dimensions while keeping our data model scalable and performant.
+
+### Fact Tables:
+- **FactPlayers**: Captures metrics related to players' performance in each match.
+- **FactGoalKeepers**: Stores performance data specific to goalkeepers, allowing for a focused analysis on their unique contributions.
+
+### Dimension Tables:
+- **DimPlayers**: Includes attributes of players such as name, position, and unique identifiers.
+- **DimGoalKeepers (DimGK)**: Contains goalkeepers' information, similar to DimPlayers but tailored to the specific role.
+- **DimMatches**: Describes match details, including dates, teams, scores, and venues.
+- **DimDate**: Provides a calendar dimension that facilitates time-series analysis and trend identification.
+
+The relationships between these tables are designed to provide a comprehensive view of the club's performance, offering insights into individual and team progress over time. This schema is the backbone of our data-driven decision-making processes and is crucial for generating the analytical reports presented in PowerBI.
+
+![Galaxy Schema](/GalaxySchema.jpg)
+
+
 
 ### Usage
 
