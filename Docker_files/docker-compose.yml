@@ -1,17 +1,94 @@
 version: '3'
+x-airflow-common:
+  &airflow-common
+  build: .
+  image: ${AIRFLOW_IMAGE_NAME:-airflow_spark:latest}
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
+    environment:
+
+ 
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./spark/app:/opt/airflow/spark/app
+    - ./spark/resources:/opt/airflow/spark/resources
+    - ./JDBC_Driver:/Drivers/SQL_Sever/jdbc
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
+  depends_on:
+    postgres:
+      condition: service_healthy
+  networks:
+    - my_network
 
 services:
+  postgres-airflow:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - 8090:8080
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    networks:
+      - my_network
+    restart: always
+
+  airflow-init:
+    <<: *airflow-common
+    command: version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+
+
   spark:
     image: bitnami/spark:latest
     ports:
-      - "8080:8080"  # Spark Web UI
+      - "7077:7077"  # Spark Web UI
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_PORT_NUMBER=7077
     volumes:
-      - ./scripts:/opt/bitnami/spark/scripts
-      - ./data:/opt/bitnami/spark/data
-      - ./drivers/:/opt/bitnami/spark/drivers/
+      - ./spark/app:/opt/airflow/spark/app
+      - ./spark/resources:/opt/airflow/spark/resources
+      - ./JDBC_Driver:/Drivers/SQL_Sever/jdbc
 
     networks:
       - my_network
@@ -40,15 +117,21 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mydatabase
     ports:
-      - "5432:5432"
+      - "5442:5432"
     networks:
       - my_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 
 networks:
   my_network:
 
 volumes:
   postgres_data:
+  postgres-db-volume:
